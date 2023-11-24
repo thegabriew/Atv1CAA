@@ -1,0 +1,50 @@
+def heapsort(vetor):
+
+  # Transforma o vetor em um heap-max
+  construir_heap(vetor)
+
+  # Remove os elementos do heap e os coloca no final do vetor ordenado.
+  for i in range(len(vetor) - 1, 0, -1):
+    # Troca o elemento máximo com o elemento do final do vetor.
+    vetor[i], vetor[0] = vetor[0], vetor[i]
+
+    # Desce o elemento máximo para manter a propriedade de heap-max
+    descer(vetor, 0)
+
+  return vetor
+
+
+def construir_heap(vetor):
+
+  #Recebe o tamanho do vetor
+  n = len(vetor)
+
+  # Começa na metade e vai descendo pelo vetor, até o índice 0.
+  for i in range(n // 2 - 1, -1, -1):
+    descer(vetor, i)
+
+
+def descer(vetor, i):
+
+  #Move o elemento em `i` para baixo no heap.
+  maior = i
+  esquerda = 2 * i + 1
+  direita = 2 * i + 2
+
+  # Encontra o filho mais valioso.
+  if esquerda < len(vetor) and vetor[esquerda] > vetor[maior]:
+    maior = esquerda
+
+  if direita < len(vetor) and vetor[direita] > vetor[maior]:
+    maior = direita
+
+  # Troca o elemento em `i` com o maior filho, se necessário.
+  if maior != i:
+    vetor[i], vetor[maior] = vetor[maior], vetor[i]
+    # Recursivamente desce o maior filho.
+    descer(vetor, maior)
+
+
+vetor = [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4]
+
+print(heapsort(vetor))
